@@ -14,13 +14,13 @@
         <% } %>
         <div id="posts-list-container">
                 <ul>
-                        <% for(post of posts){ %>
+                        <% for (let post of posts){ %>
                         
                                 <li>
                                         <p>
                                                 <%= post.content %>
                                                 <small>
-                                                        <%= post.user %>
+                                                        <%= post.user.name %>
                                                 </small>
                                         </p>
                                         <div>
