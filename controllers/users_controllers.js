@@ -1,10 +1,24 @@
 const User = require('../models/users');
 
 module.exports.profile = function(req,res){
-    return res.render('users', {
-        title: "profile"
+    User.findById(req.params.id, function(err, user){
+        return res.render('users', {
+            title: 'User Profile',
+            profile_user: user
+        });
     });
 }
+
+module.exports.update = function(req,res){
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorised');
+    }
+}
+
 module.exports.posts = function(req,res){
     return res.end('<h1>User Posts</h1>');
 }
@@ -59,3 +73,4 @@ module.exports.destroySession = function(req, res){
     req.logout();
     return res.redirect('/');
 }
+
